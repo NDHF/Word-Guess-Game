@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Hangman</title>
+    <link rel='stylesheet' type='text/css' href='style.css'>
+    <link href='https://fonts.googleapis.com/css?family=Rye' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Libre Baskerville' rel='stylesheet'>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+</head>
+
+<body onload="loadGame(wordResource)">
+
+    
+    <div id='gameContent'>
+
+            <div id='stats'></div> 
+            <h1>HANGMAN</h1>
+            <p class='center white'><b><i>
+            Guess the word, or else you'll see<br>
+            The outlaw swing from the sycamore tree<br>
+            You get <span style='text-decoration: underline; color: red;'>six guesses</span>, or roll the dice,<br>
+            And guess the whole word, but you can't guess twice.</i></b></p>
+            <h2 class='center rye white'><i>The word is&hellip;</i></h2>
+            <h1 class='center spacing rye white' id='word'></h1>
+            <div id='hangmanPics'><svg id='hangman' width='470' height='200'></svg></div>
+            <h4 id='correctOrIncorrect' class='center rye white'>TEST</h4>
+            <h4 class='center rye white' id='wrongGuessCounter'>TEST</h4>
+            <h4 class='center white rye'><span id='wrongGuesses'>WRONG GUESSES SO FAR:</span><span id='guessesSoFar'>ABCD</span></h4>
+            Your Guess:<input type='text' name='userGuess' size='1' maxlength='1' id='userGuess' autofocus><br>
+            I know the word:<input type='text' name='userWordGuess' id='userWordGuess'><br>
+            <input type='button' id='submitButton' name='submit' value='submit'>
+
+    </div>
+
+<input type="button" id="muteMusic" value="MUTE/UNMUTE MUSIC" name="MUTE/UNMUTE MUSIC">
+
+<div id='scriptDiv'>
+    
+    <script src='assets/javascript/array.js'></script>
+    <script src='assets/javascript/game.js'></script>
+   
+
+    </div>
+
+    <audio id="neoWestern" autoplay loop>
+        <source src="assets/audio/neowestern.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+      </audio>
+
+      <audio id="whipCrack">
+        <source src="assets/audio/whipcrack.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+      </audio>
+
+      <audio id="dryFire">
+            <source src="assets/audio/dryfire.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+          </audio>
+
+          <audio id="gunshot">
+                <source src="assets/audio/gunshot.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+              </audio>
+
+</body>
+
+</html>

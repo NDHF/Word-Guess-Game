@@ -1,24 +1,3 @@
-div#textEntry {
-    margin-left: auto;
-    margin-right: auto;
-    background-color: black;
-    width: 70%;
-    color: white;
-}
-
-input#letterInput {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.rye {
-    font-family: 'Rye';font-size: 22px;
-}
-
-.white {
-    color: white;
-} 
-
 #stats {
     position: fixed;
     top: 0;
@@ -36,19 +15,54 @@ input#letterInput {
     letter-spacing: 10px;
 }
 
+.white {
+    color: white;
+} 
+
+.rye {
+    font-family: 'Rye';font-size: 22px;
+}
+
+input {
+    margin: 0 auto;
+}
+
+div#textEntry {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: black;
+    width: 70%;
+    color: white;
+}
+
+div.centeredDiv {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div#check {
+    background-color: black;
+    min-height: 100px;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 div#hangmanPics {
     margin-left: auto;
     margin-right: auto;
     height: 200px;
     width: 470px;
-    background-color: navy;
+    background-color: white;
     margin-bottom: 40px;
+
 }
 
 span#guessesSoFar { font-weight: bold; }
 
  body {
-    background-image: url(../images/background.jpg);
+    background-image: url(../images/monument_valley_2.jpg);
     background-color: black;
     background-size: cover;
 	background-repeat: no-repeat;
@@ -56,7 +70,7 @@ span#guessesSoFar { font-weight: bold; }
 	background-attachment: fixed;
 }
 
-div#container {
+/* div#container {
     background-color: black;
     opacity: .3;
-} 
+} */

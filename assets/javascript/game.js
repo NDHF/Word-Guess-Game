@@ -18,9 +18,28 @@ var startingSpacesArray = "";
 
 var incorrectGuess;
 
+var placeholder = " ";
+
 var youWon = "YOU WON!";
 
 var gameOver = "GAME OVER";
+
+var whipCrack = new Audio('assets/audio/whipcrack.mp3');
+
+var cockAndFire = new Audio('assets/audio/cockandfire.mp3');
+
+var cockAndDryFire = new Audio('assets/audio/cockanddryfire.mp3');
+
+var flute = new Audio('assets/audio/flute.mp3')
+
+var horse = new Audio('assets/audio/horse.mp3')
+
+
+
+//From FrenchyNZ: https://stackoverflow.com/questions/20276687/html5-video-toggle-mute-on-click
+$("#muteMusic").click( function (){
+    $("#neoWestern").prop('muted', !$("#neoWestern").prop('muted'));
+});
 
 //SVG elements for drawing the hangman
 svgArray = 
@@ -93,9 +112,8 @@ console.log(word);
     "<h2 class='center rye white'><i>The word is&hellip;</i></h2>" +
     "<h1 class='center spacing rye white' id='word'></h1>" +
     "<div id='hangmanPics'>" + "<svg id='hangman' width='470' height='200'>" + svgArray[incorrectGuess] +  "</svg></div>" +
-    "<h4 id='correctOrIncorrect' class='center rye white'></h4>" +
-    "<h4 class='center rye white' id='wrongGuessCounter'></h4>" +
-    "<p id='stats'>"  + 
+    "<div id='check'><h4 id='correctOrIncorrect' class='center rye white background-black'>" + placeholder + "</h4>" +
+    "<h4 class='center rye white' id='wrongGuessCounter'></h4></div>" + 
     "<div id='textEntry'>" +
     "<h4 class='center white rye'><span id='wrongGuesses'></span><span id='guessesSoFar'></span></h4>" +
     "Your Guess:<input type='text' name='userGuess' size='1' maxlength='1' id='userGuess' autofocus><br>" +
@@ -104,6 +122,7 @@ console.log(word);
     "</div>";
     document.getElementById("word").innerHTML = startingSpaces;
     getStats(wins, losses);
+    whipCrack.play();
 };
 
 //Function check() runs when user clicks the SUBMIT button on the web page
@@ -131,8 +150,10 @@ function check(word) {
     //Get userWordGuess out of the way
     if ((userGuess === "") && (userWordGuess === word)) {
             outcome(word, youWon);
+            horse.play();
     } else if ((userGuess === "") && (userWordGuess !== "") && (userWordGuess !== word)) {
             outcome(word, gameOver);
+            flute.play();
     //This is where you start to weed out all inputs that are not letters in the alphabet
     } else if (alphabet.includes(userGuess) === false) {
         correctOrIncorrect("Sorry, Charlie, if you wanna play, it's gotta be a letter");
@@ -145,6 +166,7 @@ function check(word) {
         console.log("userGuess is a letter in the alphabet? " + (alphabet.includes(userGuess)));
         //Show the user that they made a correct answer, using the correctOrIncorrect function from earlier
         correctOrIncorrect("Way to go! You guessed a letter!");
+        cockAndFire.play();
         //Run a for-loop that compares the user guess against all indices in the array 
         for (i = 0; i <= word.length; i++) {
 	
@@ -163,6 +185,7 @@ function check(word) {
             //If user has guessed all the letters correctly, print a YOU WIN screen
             if (newString === word)  {
                 outcome(word, youWon);
+                horse.play();
             }
             }
         }
@@ -174,6 +197,7 @@ function check(word) {
         console.log("userGuess is included in the word? " + false);
         //Show the user that they made a correct answer, using the correctOrIncorrect function from earlier
         correctOrIncorrect("Tough luck, Chuck, you guessed wrong&hellip;");
+        cockAndDryFire.play();
         //Add to the incorrectGuess variable
         incorrectGuess++;
         document.getElementById("hangman").innerHTML += svgArray[incorrectGuess];
@@ -187,20 +211,20 @@ function check(word) {
         //Once the counter reaches 6, the game over screen is triggered
             if (incorrectGuess >= 6) {
                outcome(word, gameOver);
+               flute.play();
             }    
     }
 };
 
 //This function will be used to tell the user if their guess was correct or incorrect
 function correctOrIncorrect(string) {
-    document.getElementById("correctOrIncorrect").innerHTML = "<h1>" + string + "</h1>";
+    document.getElementById("correctOrIncorrect").innerHTML = string;
 };
 
 function outcome(word, x) {
 
     var winOrLoss;
     var j;
-
 
     if (x === youWon) {
         wins++;

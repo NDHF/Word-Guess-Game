@@ -12,8 +12,12 @@
 
 <body onload="loadGame(wordResource)">
 
+    
     <div id='gameContent'>
+
 </div>
+
+<input type="button" id="muteMusic" value="MUTE/UNMUTE MUSIC" name="MUTE/UNMUTE MUSIC">
 
 <div id='scriptDiv'>
     
@@ -22,6 +26,27 @@
    
 
     </div>
+
+    <audio id="neoWestern" autoplay loop>
+        <source src="assets/audio/neowestern.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <audio id="whipCrack">
+        <source src="assets/audio/whipcrack.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+    <audio id="dryFire">
+        <source src="assets/audio/dryfire.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <audio id="gunshot">
+        <source src="assets/audio/gunshot.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
 </body>
 
 </html>

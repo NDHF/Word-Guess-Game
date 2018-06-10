@@ -1,0 +1,74 @@
+#stats {
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: white;
+    text-align: left;
+    padding-left: 5px;
+    padding-top: 5px;
+    font-family:'Libre Baskerville';font-size: 22px;
+}
+
+.center { text-align: center; }
+
+.spacing { 
+    letter-spacing: 10px;
+}
+
+.background-black {
+    background-color: black;
+    opacity: .4;
+}
+
+.white {
+    color: white;
+} 
+
+.rye {
+    font-family: 'Rye';font-size: 22px;
+}
+
+input {
+    margin: 0 auto;
+}
+
+div#textEntry {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: black;
+    width: 70%;
+    color: white;
+}
+
+div.centeredDiv {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+div#hangmanPics {
+    margin-left: auto;
+    margin-right: auto;
+    height: 200px;
+    width: 470px;
+    background-color: white;
+    margin-bottom: 40px;
+
+}
+
+span#guessesSoFar { font-weight: bold; }
+
+ body {
+    background-image: url(../images/monument_valley_2.jpg);
+    background-color: black;
+    background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+}
+
+/* div#container {
+    background-color: black;
+    opacity: .3;
+} */
