@@ -3,10 +3,11 @@ var wins = 0;
 var losses = 0;
 var winLossRatio = "TBD";
 //A reusable string to display them
-var stats = 
-    "Wins: " + wins + "<br>" +
-    "Losses: " + losses + "<br>" +
-    "Win/Loss Ratio: " + winLossRatio;
+
+function getStats(wins, losses){
+    document.getElementById("stats").innerHTML = "Wins: " + wins + "<br>" +
+    "Losses: " + losses + "<br>";
+};    
 
 //User input will be compared to this array, to make sure userGuess is a letter in the alphabet
 const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
@@ -16,6 +17,24 @@ var startingSpaces = "";
 var startingSpacesArray = "";
 
 var incorrectGuess;
+
+var youWon = "YOU WON!";
+
+var gameOver = "GAME OVER";
+
+//SVG elements for drawing the hangman
+svgArray = 
+[
+"<rect width='470' height='200' style='fill:white;stroke-width:3;stroke:black;' />",
+"<circle cx='400' cy='50' r='30' stroke='black' stroke-width='4' fill='white' />", 
+"<line x1='400' y1='79' x2='400' y2='150' stroke='black' stroke-width='4' />",
+"<line x1='400' y1='99' x2='350' y2='130' stroke='black' stroke-width='4' />",
+"<line x1='400' y1='99' x2='450' y2='130' stroke='black' stroke-width='4' />",
+"<line x1='401' y1='149' x2='350' y2='190' stroke='black' stroke-width='4' />",
+"<line x1='399' y1='149' x2='450' y2='190' stroke='black' stroke-width='4' />",
+"<text x='0' y='15' fill='red'>I WON!</text>",
+"<text x='0' y='15' fill='red'>GAME OVER</text>"
+];
 
 //This function loads the game HTML
 function loadGame(wordResource) {
@@ -59,11 +78,11 @@ function loadGame(wordResource) {
     //Make sure it's working
     console.log("Incorrect guess counter: " + incorrectGuess); 
 
-    var placeholder = " ";
 
 console.log(word);
 
     document.getElementById("gameContent").innerHTML = 
+    "<div id='stats'></div>" +
     "<h1 class='center spacing rye white'>HANGMAN</h1>" +
     "<p class='center white'><b><i>" +
     "Guess the word, or else you'll see<br>" +
@@ -73,8 +92,7 @@ console.log(word);
     "</i></b></p>"+
     "<h2 class='center rye white'><i>The word is&hellip;</i></h2>" +
     "<h1 class='center spacing rye white' id='word'></h1>" +
-    "<div id='hangmanPics'>" +
-    "</div>" +
+    "<div id='hangmanPics'>" + "<svg id='hangman' width='470' height='200'>" + svgArray[incorrectGuess] +  "</svg></div>" +
     "<h4 id='correctOrIncorrect' class='center rye white'></h4>" +
     "<h4 class='center rye white' id='wrongGuessCounter'></h4>" +
     "<p id='stats'>"  + 
@@ -85,6 +103,7 @@ console.log(word);
     "<input type='button' onClick='check(\"" + word + "\")' id='submitButton' name='submit' value='submit'>" +
     "</div>";
     document.getElementById("word").innerHTML = startingSpaces;
+    getStats(wins, losses);
 };
 
 //Function check() runs when user clicks the SUBMIT button on the web page
@@ -111,9 +130,9 @@ function check(word) {
 
     //Get userWordGuess out of the way
     if ((userGuess === "") && (userWordGuess === word)) {
-            youWin(word);
+            outcome(word, youWon);
     } else if ((userGuess === "") && (userWordGuess !== "") && (userWordGuess !== word)) {
-            youLose(word);
+            outcome(word, gameOver);
     //This is where you start to weed out all inputs that are not letters in the alphabet
     } else if (alphabet.includes(userGuess) === false) {
         correctOrIncorrect("Sorry, Charlie, if you wanna play, it's gotta be a letter");
@@ -143,7 +162,7 @@ function check(word) {
             document.getElementById("word").innerHTML = newString;
             //If user has guessed all the letters correctly, print a YOU WIN screen
             if (newString === word)  {
-                youWin(word);
+                outcome(word, youWon);
             }
             }
         }
@@ -157,6 +176,7 @@ function check(word) {
         correctOrIncorrect("Tough luck, Chuck, you guessed wrong&hellip;");
         //Add to the incorrectGuess variable
         incorrectGuess++;
+        document.getElementById("hangman").innerHTML += svgArray[incorrectGuess];
         //Log how many incorrect guesses there have been
         console.log("# of incorrect guesses= " + incorrectGuess + "/6");
         //Display wrong guesses to user, against how many guesses they have (6)
@@ -166,7 +186,7 @@ function check(word) {
         document.getElementById("guessesSoFar").innerHTML += userGuess + " ";
         //Once the counter reaches 6, the game over screen is triggered
             if (incorrectGuess >= 6) {
-               youLose(word);
+               outcome(word, gameOver);
             }    
     }
 };
@@ -176,17 +196,40 @@ function correctOrIncorrect(string) {
     document.getElementById("correctOrIncorrect").innerHTML = "<h1>" + string + "</h1>";
 };
 
-//Function that is called if user loses
-function youLose(word) {
-    //Add to loss counter
-    losses++;
-    //Display GAME OVER screen to user, with win/loss tally
+function outcome(word, x) {
+
+    var winOrLoss;
+    var j;
+
+
+    if (x === youWon) {
+        wins++;
+        console.log(wins);
+        winOrLoss = "YOU WON!";
+        j = 7;
+        console.log("You won!");
+    } else if (x === gameOver) {
+        losses++;
+        console.log(losses);
+        winOrLoss = "GAME OVER";
+        j = 8;
+        console.log("GAME OVER");
+    };
+
     document.getElementById("gameContent").innerHTML = 
-    "GAME OVER The word was '" + word + "'<br>" + 
-    "Wins: " + wins + "<br>" + 
-    "Losses: " + losses + "<br>" + 
-    "Win/Loss Ratio: " + winLossRatio + "<br>" +
+    "<div id='stats'></div>" +
+    "<div id='hangmanPics'><svg id='hangman' width='470' height='200'></svg></div>" +
+    "<h1 class='white center rye'>" + winOrLoss + "<br>" + 
+    "The word was '" + word + "'<br>" +  
     "<input type='button' onClick='loadGame(wordResource)' name='loadGame' id='loadGame' value='Play again, pilgrim?'>";
+
+    for (i = 0; i <= 6; i++) {
+        document.getElementById("hangman").innerHTML += svgArray[i];
+        document.getElementById("hangman").innerHTML += svgArray[j];
+    } 
+
+    getStats(wins, losses);
+    
     $(document).off("keypress");
 
     //From Paolo Bergantino https://stackoverflow.com/users/16417/paolo-bergantino
@@ -200,33 +243,5 @@ function youLose(word) {
     wordResource.splice(wordResource.indexOf(word), 1);
     console.log(wordResource.length);
 
-    console.log("You lose!");
-    console.log("GAME OVER");
-}
+};
 
-//Function that is called if user wins
-function youWin(word) {
-    //Add to win counter
-    wins++;
-    //Display win screen to user, with win/loss tally
-    document.getElementById("gameContent").innerHTML = 
-        "YOU WIN! The word is '" + word + "'<br>" + 
-        "Wins: " + wins + "<br>" + 
-        "Losses: " + losses + "<br>" + 
-        "Win/Loss Ratio: " + winLossRatio + "<br>" +
-        "<input type='button' onClick='loadGame(wordResource)' name='loadGame' id='loadGame' value='Play again, pilgrim?'>";
-        $(document).off("keypress");
-
-        //From Paolo Bergantino https://stackoverflow.com/users/16417/paolo-bergantino
-        $(document).keypress(function(e) {
-            if(e.which == 13) {
-                loadGame(wordResource);
-            }
-        });
-    console.log(wordResource.length);
-    wordResource.splice(wordResource.indexOf(word), 1);
-    console.log(wordResource.length);
-
-    //Make sure it works
-    console.log("YOU WIN!");
-}
