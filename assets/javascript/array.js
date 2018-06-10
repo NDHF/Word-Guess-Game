@@ -1,4 +1,4 @@
-var wordArray = 
+const wordResource = 
 [
 "able", 
 "about", 
@@ -925,4 +925,4 @@ var wordArray =
 "yet", 
 "you", 
 "young"
-]
+];
